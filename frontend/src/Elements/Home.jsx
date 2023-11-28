@@ -6,8 +6,8 @@ import TitleCard from './TitleCard';
 const globalBlogsUrl = 'http://localhost:8080/allblogs';
 
 function cpmt(blog1, blog2) {
-  const t1 = Number(blog1.timestamp);
-  const t2 = Number(blog2.timestamp);
+  const t1 = Number(blog1.id);
+  const t2 = Number(blog2.id);
 
   if (t1 < t2) return -1;
   if (t1 > t2) return 1;

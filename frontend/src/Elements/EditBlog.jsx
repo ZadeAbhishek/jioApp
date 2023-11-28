@@ -49,6 +49,7 @@ const [blog, setBlog] = React.useState({
         name="timestamp"
         value={blog.timestamp}
         onChange={handleChange}
+        disabled
       />
 
       <label htmlFor="author">Author:</label>

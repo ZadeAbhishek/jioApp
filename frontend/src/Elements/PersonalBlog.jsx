@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import "../css/personalBlog.css"
 
 const globalBlogsUrl = 'http://localhost:8080/personalblog';
+const deleteBlogsUrl = 'http://localhost:8080/deleteblog';
 
 function PersonalBlogs() {
   const email = 'zadeabhi55@gmail.com';
@@ -21,8 +22,13 @@ function PersonalBlogs() {
 
   const handleDelete = (blogId) => {
     console.log('Delete blog with ID:', blogId);
+    axios.post(deleteBlogsUrl,{email:email,id:blogId}).then((response)=>{updateUI(response)}).catch((error)=>{alert(error)})
   };
 
+  const updateUI = (response)=>{
+    alert(response.data)
+    window.location.reload(false);
+  }
   return (
     <div className='home-body'>
       {blogs.map((blog) => (
@@ -30,6 +36,7 @@ function PersonalBlogs() {
           <div className='title'>{blog.title}</div>
           <div className='timestamp-author'>
             <div className='timestamp'>{blog.timestamp}</div>
+            <div className='timestamp'>{blog.time}</div>
             <div className='author'>{blog.author}</div>
           </div>
           <div className='card-body'>{blog.body.slice(0, 250) + '....'}</div>
@@ -39,6 +46,7 @@ function PersonalBlogs() {
           </div>
         </div>
       ))}
+      <Link className='read-more publish-btn' to={{ pathname: `/publish`}} >Publish</Link>
     </div>
   );
 }

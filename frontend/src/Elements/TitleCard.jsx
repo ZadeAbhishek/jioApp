@@ -8,6 +8,7 @@ function TitleCard({ blog }) {
       <div className='title'>{blog.title}</div>
       <div className='timestamp-author'>
         <div className='timestamp'>{blog.timestamp}</div>
+        <div className='timestamp'>{blog.time}</div>
         <div className='author'>{blog.author}</div>
       </div>
       <div className='card-body'>{blog.body.slice(0, 250) + '.....'}</div>
