@@ -1,0 +1,45 @@
+.navbar {
+    background-color: rgb(252, 166, 109);
+    color: aliceblue;
+    width: 100%;
+    height: 60px;
+    /* Adjust height for better visibility */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* Increase z-index for stacking context */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add subtle shadow for depth */
+}
+
+.links {
+    font-size: 18px;
+    /* Adjust font size for readability */
+    text-decoration: none;
+    padding: 0 15px;
+    /* Increase horizontal padding for spacing */
+    color: aliceblue;
+    transition: color 0.3s ease;
+    /* Add transition for smooth color change */
+}
+
+.links:hover {
+    color: cadetblue;
+}
+
+.details {
+    position: absolute;
+    right: 2%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Add background color with transparency */
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    /* Hide initially */
+}
+
+.links:hover .details {
+    display: block;
+    /* Show details on link hover */
+}

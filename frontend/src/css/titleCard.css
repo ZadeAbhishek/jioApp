@@ -1,0 +1,43 @@
+.title-card {
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 20px 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.timestamp-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #666;
+}
+
+.author {
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+}
+
+.card-body {
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.del-btn {
+    visibility: hidden;
+}
