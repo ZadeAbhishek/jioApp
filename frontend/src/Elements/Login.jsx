@@ -21,18 +21,15 @@ function Login() {
   };
 
   // Function to handle API response after login attempt
-  const handleResponse = (response) => {
+  const handleResponse = (response)=>{
     const result = response.data;
-    if (typeof(result) === "object") {
-      // If response is an object, assume successful login
-      localStorage.setItem("isLoggedIn", "True");
-      localStorage.setItem("email", `${email}`);
-      localStorage.setItem("name", `${result.name}`);
-      navigate("/personalblog"); // Redirect to personal blog page
-    } else {
-      // If not an object, display the error message
-      alert(result.data);
+    if(typeof(result) == "object"){
+      localStorage.setItem("isloggedIn","True");
+      localStorage.setItem("email",`${email}`);
+      localStorage.setItem("name",`${result.name}`)
+      navigate("/personalblog");
     }
+    else alert(result.data);
   }
 
   // Function to handle the login attempt
