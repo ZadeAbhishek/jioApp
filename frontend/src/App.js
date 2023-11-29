@@ -7,6 +7,7 @@ import Publish from './Elements/Publish';
 import Navbar from './Elements/Navbar';
 import ViewBlog from './Elements/ViewBlog'
 import EditBlog from './Elements/EditBlog';
+import Settings from './Elements/Settings';
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
       <Route path="/publish" element={<Publish />}/>
       <Route path="/viewblog/:name" element={<ViewBlog />}/>
       <Route path="/editblog/:name" element={<EditBlog />}/>
+      <Route path="/settings" element={<Settings />}/>
     </Routes>
     </BrowserRouter>
   );

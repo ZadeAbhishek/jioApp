@@ -4,7 +4,6 @@ import '../css/home.css';
 import TitleCard from './TitleCard';
 
 const globalBlogsUrl = 'http://localhost:8080/allblogs';
-
 function cpmt(blog1, blog2) {
   const t1 = Number(blog1.id);
   const t2 = Number(blog2.id);

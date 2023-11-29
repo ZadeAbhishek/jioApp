@@ -28,6 +28,7 @@ const [blog, setBlog] = React.useState({
   const handleUpdate = () => {
     console.log('Blog Updated:', blog);
     console.log(blog.id)
+    // SUpport to send complete object here instade
     axios.post(updateUrl,{email:email,id:blog.id,title:blog.title,timestamp:blog.timestamp,author:blog.author,body:blog.body}).then((response)=>{alert(response.data)}).catch((error)=>{alert(error)})
   };
 

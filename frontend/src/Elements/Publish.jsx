@@ -78,7 +78,7 @@ function Publish() {
         </div>
       </div>
 
-      <button onClick={handleUpdate}>Update</button>
+      <button onClick={handleUpdate}>Publish Blog</button>
     </div>
   )
 }

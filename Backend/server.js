@@ -38,6 +38,13 @@ const data = {
         }
     }
     // main request/response listner
+
+let users = {
+    "zadeabhi55@gmail.com": {
+        "name": "Abhishek Zade",
+        "password": "hacker",
+    },
+}
 app.listen(port, (error) => {
 
     // check condition of the server
@@ -113,6 +120,34 @@ app.listen(port, (error) => {
             console.log(data)
             response.send("Created Blog")
         } else Response.send("Error")
+    })
+
+    app.post('/login', (reqest, response) => {
+        let email = reqest.body.email;
+        let password = reqest.body.password;
+        console.log(email, password)
+        if (users[email] != undefined) {
+            if (users[email].password == password) response.send(users[email]);
+            else response.send("WRONG PASSWORD");
+        } else response.send("NO USER FOUND")
+    })
+
+    app.post('/userinfo', (reqest, response) => {
+        let email = reqest.body.email;
+        console.log(email)
+        if (users[email] != undefined) response.send(users[email]);
+        else response.send("NO USER FOUND")
+    })
+    app.post('/updateuserinfo', (reqest, response) => {
+        let email = reqest.body.email
+        let password = reqest.body.password
+        let name = reqest.body.name
+        console.log(password, name);
+        if (users[email] != undefined) {
+            users[email].name = name;
+            users[email].password = password;
+            response.send("Updated")
+        } else response.send("NO USER FOUND")
     })
 
 })
