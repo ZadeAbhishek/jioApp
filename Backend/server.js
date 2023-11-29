@@ -75,6 +75,21 @@ let users = {
         "password": "hacker",
     },
 }
+
+const covertToString = (request) => {
+    const newBlog = {
+        "id": `${request.body.id}`,
+        "title": `${request.body.title}`,
+        "timestamp": `${request.body.timestamp}`,
+        "body": `${request.body.body}`,
+        "edited": `${false}`,
+        "author": `${request.body.author}`,
+        "time": `${request.body.time}`,
+    };
+    return newBlog;
+}
+
+
 app.listen(port, (error) => {
 
     // check condition of the server
@@ -89,115 +104,104 @@ app.listen(port, (error) => {
 
     // API starts from here first basic API
     // read
-    app.get('/allblogs', (request, response) => {
 
-        console.log("Blogs Send");
-        console.log(data);
+    app.get('/allblogs', (request, response) => {
         response.send(data);
     })
 
-    app.post('/personalblog', (request, response) => {
-        let email = request.body.email
-        console.log(data[email]);
-        if (data[email] != undefined) response.send(data[email])
-        else return response.send({ "blogs": [] })
-    })
+    // Router to user there own Blogs
+    app.post('/personalblog', PersonalBlogs)
 
-    app.post('/updateblog', (request, response) => {
-        let email = request.body.email
-        let id = request.body.id
-        let title = request.body.title
-        let timestamp = request.body.timestamp
-        let author = request.body.author
-        let body = request.body.body
-        console.log(email, id, title, timestamp, author, body);
-        if (data[email] != undefined) {
-            data[email].blogs.forEach(element => {
-                if (element.id === id) {
-                    element.title = title,
-                        element.timestamp = timestamp;
-                    element.author = author;
-                    element.body = body;
-                }
-            });
-            response.send("Updated Successfully");
-        } else response.send("Error");
-    })
+    // Route to update the Blogs from users
+    app.post('/updateblog', updateBlogs)
 
-    app.post('/deleteblog', (request, response) => {
-        let email = request.body.email
-        let id = request.body.id
-        console.log(email, id)
-        if (data[email] != undefined) {
-            const filteredPeople = data[email].blogs.filter((item) => item.id !== id);
-            data[email].blogs = filteredPeople
-            response.send("Deleted Blog")
-        } else response.send("Error")
+    // route to delete Blog
+    app.post('/deleteblog', deleteBlog)
 
-    })
-
-    app.post('/creatblog', (request, response) => {
-        const email = request.body.email;
-        const newBlog = {
-            "id": `${request.body.id}`,
-            "title": `${request.body.title}`,
-            "timestamp": `${request.body.timestamp}`,
-            "body": `${request.body.body}`,
-            "edited": `${false}`,
-            "author": `${request.body.author}`,
-            "time": `${request.body.time}`,
-        };
-        if (data[email] !== undefined) {
-            data[email].blogs.push(newBlog);
-            console.log(data);
-            response.send("Created Blog");
-        } else {
-            data[email] = { "blogs": [] };
-            data[email].blogs.push(newBlog)
-        }
-    });
+    // Route to create blog
+    app.post('/creatblog', createBlog)
 
 
-    app.post('/login', (reqest, response) => {
-        let email = reqest.body.email;
-        let password = reqest.body.password;
-        console.log(email, password)
-        if (users[email] != undefined) {
-            if (users[email].password == password) response.send(users[email]);
-            else response.send("WRONG PASSWORD");
-        } else response.send("NO USER FOUND")
-    })
+    // Route for user Login
+    app.post('/login', loginUser)
 
-    app.post('/userinfo', (reqest, response) => {
-        let email = reqest.body.email;
-        console.log(email)
-        if (users[email] != undefined) response.send(users[email]);
-        else response.send("NO USER FOUND")
-    })
-    app.post('/updateuserinfo', (reqest, response) => {
-        let email = reqest.body.email
-        let password = reqest.body.password
-        let name = reqest.body.name
-        console.log(password, name);
-        if (users[email] != undefined) {
-            users[email].name = name;
-            users[email].password = password;
-            response.send("Updated")
-        } else response.send("NO USER FOUND")
-    })
+    // Route for user information to upate
+    app.post('/userinfo', userInfo)
 
-    app.post('/registeruserinfo', (request, response) => {
-        let email = request.body.email;
-        let password = request.body.password;
-        let name = request.body.name;
+    // update users information
+    app.post('/updateuserinfo', updateUserInfo)
 
-        if (users[email] !== undefined) {
-            response.send("User already present");
-        } else {
-            users[email] = { name: name, password: password };
-            response.send("User Registered");
-        }
-    });
+    // register user 
+    app.post('/registeruserinfo', registerUserInformation);
 
 
 })
+
+
+const createBlog = (request, response) => {
+    const newBlog = covertToString(request);
+    if (data[request.body.email] !== undefined) {
+        data[request.body.email].blogs.push(newBlog);
+        response.send("Published Blog");
+    } else {
+        data[request.body.email] = { "blogs": [] };
+        data[request.body.email].blogs.push(newBlog)
+        response.send("Created and Published")
+    }
+}
+
+const deleteBlog = (request, response) => {
+    if (data[request.body.email] != undefined) {
+        const filteredPeople = data[request.body.email].blogs.filter((item) => item.id !== request.body.id);
+        data[request.body.email].blogs = filteredPeople
+        response.send("Deleted Blog")
+    } else response.send("Error")
+}
+
+const PersonalBlogs = (request, response) => {
+    if (data[request.body.email] != undefined) response.send(data[request.body.email])
+    else return response.send({ "blogs": [] })
+}
+
+const updateBlogs = (request, response) => {
+    const newBlog = covertToString(request);
+    if (data[request.body.email] != undefined) {
+        data[request.body.email].blogs.forEach(element => {
+            if (element.id === newBlog.id) {
+                element.author = newBlog.author;
+                element.body = newBlog.body;
+                element.title = newBlog.title;
+                response.send("Updated Successfully");
+            }
+        });
+    } else response.send("Error");
+}
+
+const loginUser = (request, response) => {
+    if (users[request.body.email] != undefined) {
+        if (users[request.body.email].password == request.body.password) response.send(users[request.body.email]);
+        else response.send("WRONG PASSWORD");
+    } else response.send("NO USER FOUND")
+}
+
+const userInfo = (request, response) => {
+    if (users[request.body.email] != undefined) response.send(users[request.body.email]);
+    else response.send("NO USER FOUND")
+}
+
+const updateUserInfo = (request, response) => {
+    if (users[request.body.email] != undefined) {
+        users[request.body.email].name = request.body.name;
+        users[request.body.email].password = request.body.password;
+        response.send("Updated")
+    } else response.send("NO USER FOUND")
+}
+
+const registerUserInformation = (request, response) => {
+    if (users[request.body.email] !== undefined) {
+        response.send("User already present");
+    } else {
+        users[request.body.email] = { name: request.body.name, password: request.body.password };
+        response.send("User Registered");
+    }
+}

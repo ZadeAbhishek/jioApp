@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import "../css/editBlog.css"
 import axios from 'axios';
 const updateUrl = "http://localhost:8080/updateblog"
-const email = "zadeabhi55@gmail.com"
+const email = localStorage.getItem("email")
 function EditBlog() {
 const [blog, setBlog] = React.useState({
         id:'',
