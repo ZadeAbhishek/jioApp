@@ -8,8 +8,8 @@ function cpmt(blog1, blog2) {
   const t1 = Number(blog1.id);
   const t2 = Number(blog2.id);
 
-  if (t1 < t2) return -1;
-  if (t1 > t2) return 1;
+  if (t1 < t2) return 1;
+  if (t1 > t2) return -1;
   return 0;
 }
 
