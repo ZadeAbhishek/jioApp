@@ -49,6 +49,7 @@ function Settings() {
 
   const handleSingOut = () =>{
     localStorage.clear();
+    localStorage.setItem("isloggedIn","False");
     navigate("/")
   }
   if(islogedIn) return (

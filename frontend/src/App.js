@@ -8,6 +8,7 @@ import Navbar from './Elements/Navbar';
 import ViewBlog from './Elements/ViewBlog'
 import EditBlog from './Elements/EditBlog';
 import Settings from './Elements/Settings';
+import RegisterUser from './Elements/RegisterUser';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
       <Route path="/viewblog/:name" element={<ViewBlog />}/>
       <Route path="/editblog/:name" element={<EditBlog />}/>
       <Route path="/settings" element={<Settings />}/>
+      <Route path="/registeruser" element={<RegisterUser />}/>
     </Routes>
     </BrowserRouter>
   );

@@ -38,6 +38,7 @@
 }
 
 .card-body {
+    white-space: pre-line;
     padding-top: 20px;
     font-size: 16px;
     font-weight: 500;

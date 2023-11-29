@@ -36,10 +36,8 @@ function Login() {
   };
 
   const handleRegister = () => {
-    // Handle registration logic here with 'email' and 'password' state values
-    console.log('Register - Email:', email);
-    console.log('Register - Password:', password);
-  };
+     navigate("/registeruser");  
+    };
 
   return (
     <div className="container">

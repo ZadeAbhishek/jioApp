@@ -6,7 +6,7 @@ const globalBlogsUrl = 'http://localhost:8080/personalblog';
 const deleteBlogsUrl = 'http://localhost:8080/deleteblog';
 function PersonalBlogs() {
   let isloggedIn = localStorage.getItem("isloggedIn") !== "False";
-  console.log(isloggedIn);
+  console.log(isloggedIn)
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
   const [blogs, setBlogs] = React.useState([]);
@@ -14,6 +14,7 @@ function PersonalBlogs() {
   React.useEffect(() => {
     axios.post(globalBlogsUrl, { email: email })
       .then((response) => {
+        console.log(response.data.blogs);
         setBlogs(response.data.blogs);
       })
       .catch((error) => {
@@ -28,7 +29,14 @@ function PersonalBlogs() {
 
   const updateUI = (response)=>{
     alert(response.data)
-    window.location.reload(false);
+    axios.post(globalBlogsUrl, { email: email })
+      .then((response) => {
+        setBlogs(response.data.blogs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    
   }
   if(isloggedIn) return (<div className='home-body'>
   {blogs.map((blog) => (

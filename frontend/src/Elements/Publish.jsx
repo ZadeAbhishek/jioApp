@@ -2,15 +2,17 @@ import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-let date = new Date().toJSON();
-const email = "zadeabhi55@gmail.com"
+
+
 const creatBlogUrl = 'http://localhost:8080/creatblog';
 function Publish() {
+  const email = localStorage.getItem("email")
+  let date = new Date().toJSON();
   const [blog, setBlog] = React.useState({
     id:'',
     title: '',
     timestamp: date.slice(0,10),
-    author: '',
+    author: localStorage.getItem("name"),
     body: '',
     time:'',
   });
@@ -25,9 +27,9 @@ function Publish() {
   const handleUpdate = () => {
     console.log('Blog Updated:', blog);
     blog.time = date.slice(11,16);
-    let Date = `${blog.timestamp.replace(/\D/g,'')}` + `${blog.time.replace(/\D/g,'')}`;
+    let Date = `${date.replace(/\D/g,'')}`;
     blog.id = Date;
-    axios.post(creatBlogUrl,{email:email,id:blog.id,title:blog.title,timestamp:blog.timestamp,author:blog.author,body:blog.body, time:blog.time}).then((response)=>{alert(response.data)}).catch((error)=>{alert(error)})
+    axios.post(creatBlogUrl,{email:email,id:blog.id,title:blog.title,timestamp:blog.timestamp,author:blog.author,body:blog.body, time:blog.time}).then((response)=>{alert("Blog Created")}).catch((error)=>{alert(error)})
   };
   return (
     <div className='edit-body'>
